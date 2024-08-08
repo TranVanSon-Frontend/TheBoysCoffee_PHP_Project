@@ -1,0 +1,120 @@
+<?php
+if (is_user_logged_in()) {
+    $html_cart_user = displayCart($ds_cart_user);
+} else {
+    $html_cart_user = displayCart(0);
+}
+?>
+<section id="cart" class="section-p1">
+    <?php if (!empty($ds_cart_user)) : ?>
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>Xóa</td>
+                    <td>Hình ảnh</td>
+                    <td>Sản phẩm</td>
+                    <td>Giá</td>
+                    <td>Số lượng</td>
+                    <td>Tổng cộng</td>
+                </tr>
+            </thead>
+            <tbody>
+                <?= $html_cart_user ?>
+            </tbody>
+        </table>
+    <?php else : ?>
+        <p>Giỏ hàng của bạn đang trống. Hãy tiếp tục mua sắm để thêm sản phẩm vào giỏ hàng.</p>
+    <?php endif; ?>
+</section>
+<div>
+    <div class="container-cart">
+    <?php if (!empty($ds_cart_user)) : ?>
+        <div class="cart-container">
+            <div class="cart-items">
+                <h2>Giỏ hàng</h2>
+                <?php
+                if (is_user_logged_in()) {
+                    $id_user = isset($_SESSION['id_user']) ? $_SESSION['id_user'] : null;
+                    if ($id_user !== null) {
+                        foreach ($ds_cart_user as $item) :
+                ?>
+                <div class="cart-item">
+                    <img src="images/<?= $item['hinh']; ?>" alt="Đế Giữ Giấy Lọc">
+                    <div class="item-details">
+                        <h3><?= $item['ten_sp']; ?></h3>
+                    </div>
+                    <div><?= number_format($item['gia'] * $item['soluong']) . ' VNĐ'; ?></div>
+                  
+                    <div class="item-quantity">
+                        <button onclick="decreaseQuantity(this)">-</button>
+                        <input type="number" value="<?= $item['soluong']; ?>" min="1" readonly>
+                        <button onclick="increaseQuantity(this)">+</button>
+                    </div>
+                </div>
+                <?php
+                        endforeach;
+                        $sum_cart = get_sum_cart($id_user);
+                        if ($sum_cart !== false) :
+                ?>
+                <div class="order-note">
+                    <label for="order-note">Ghi chú đơn hàng</label>
+                    <textarea id="order-note" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="cart-summary">
+                <h2>Hẹn giờ nhận hàng</h2>
+                <label for="delivery-date">Ngày nhận hàng</label>
+                <input type="date" id="delivery-date" value="2024-07-28">
+                <label for="delivery-time">Thời gian nhận hàng</label>
+                <select id="delivery-time">
+                    <option value="">Chọn thời gian</option>
+                    <option value="morning">Buổi sáng</option>
+                    <option value="afternoon">Buổi chiều</option>
+                    <option value="evening">Buổi tối</option>
+                </select>
+                <div class="total-price"><?= number_format($sum_cart['tong_cart']) . ' VNĐ'; ?></div>
+                <?php endif; ?>
+                <a href="#" class="checkout-button">Thanh Toán</a>
+                <div class="payment-methods">
+                    <img src="img-footer/pay.webp" alt="Visa">
+                </div>
+            </div>
+        </div>
+        <?php
+                    }
+                }
+                ?>
+    </div>
+</div>
+<?php endif; ?>
+    <script>
+        function decreaseQuantity(button) {
+            var input = button.nextElementSibling;
+            if (input.value > 1) {
+                input.value = parseInt(input.value) - 1;
+            }
+        }
+
+        function increaseQuantity(button) {
+            var input = button.previousElementSibling;
+            input.value = parseInt(input.value) + 1;
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+có thể sẽ dùng
+<!--     
+<?php
+
+foreach ($dsdm as $dm) {
+
+    echo '<a href="index.php?pg=shop&iddm=' . $dm['id'] . '" style="text-decoration: none;"><div class="submenu-item">'. htmlspecialchars($dm['ten_loai']).'  </div> </a>';
+}
+?>   -->

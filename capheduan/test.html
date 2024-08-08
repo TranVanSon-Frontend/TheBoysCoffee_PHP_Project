@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh mục sản phẩm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .menu {
+            width: 250px;
+            background-color: #d7b488;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+        .menu-item img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+        .menu-item:hover {
+            background-color: #e5c39b;
+        }
+        .submenu {
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            background-color: #d7b488;
+            padding: 10px;
+            border-radius: 5px;
+            min-width: 200px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+        }
+        .submenu-item {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .submenu-item:hover {
+            background-color: #e5c39b;
+        }
+        .menu-item:hover .submenu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <div class="menu-item">
+            <img src="icon1.png" alt="Icon">
+            <span>Sản phẩm ưu chuộng</span>
+            <div class="submenu">
+                <div class="submenu-item">Submenu 1</div>
+                <div class="submenu-item">Submenu 2</div>
+                <div class="submenu-item">Submenu 3</div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="icon2.png" alt="Icon">
+            <span>Cà phê</span>
+            <div class="submenu">
+                <div class="submenu-item">Submenu 1</div>
+                <div class="submenu-item">Submenu 2</div>
+                <div class="submenu-item">Submenu 3</div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="icon3.png" alt="Icon">
+            <span>Máy pha cà phê viên nén</span>
+            <div class="submenu">
+                <div class="submenu-item">Submenu 1</div>
+                <div class="submenu-item">Submenu 2</div>
+                <div class="submenu-item">Submenu 3</div>
+            </div>
+        </div>
+        <!-- Add more menu items as needed -->
+    </div>
+</body>
+</html>
